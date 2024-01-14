@@ -24,6 +24,8 @@ import { LatestSeqs } from './latest-seqs.js'
 //   ],
 // }
 
+// still needs to be run-length encoded
+// still needs to have tests written.
 export class CausalTree {
   constructor () {
     this.replicaIds = new LocalOrder()

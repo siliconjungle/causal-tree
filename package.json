@@ -1,0 +1,12 @@
+{
+  "name": "causal-annotations",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "nanoid": "^5.0.4"
+  },
+  "scripts": {
+    "test": "node tests/run-tests.js"
+  }
+}

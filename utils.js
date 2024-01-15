@@ -1,3 +1,25 @@
+export const getInnerAncestorIndices = (changes, changeIndex, ancestors = new Set()) => {
+  const change = changes[changeIndex]
+
+  const { parentIndices } = change
+
+  for (let i = 0; i < parentIndices.length; ++i) {
+    const parentIndex = parentIndices[i]
+
+    ancestors.add(parentIndex)
+
+    getAncestorIndices(changes, parentIndex, ancestors)
+  }
+
+  return ancestors
+}
+
+export const getAncestorIndices = (changes, changeIndex) => {
+  const ancestors = getInnerAncestorIndices(changes, changeIndex)
+
+  return Array.from(ancestors)
+}
+
 // This is inefficient, this should really be implemented as a breadth first search.
 export const getAncestorDistances = (changeIndex, changes, ancestorIndices = {}, distance = 0) => {
   const change = changes[changeIndex]

@@ -25,6 +25,8 @@ export class LatestSeqs {
   // ok uhm... it can't just be the parent indices right...?
   // doesn't it need to be the global sequence numbers?
   getNextParentIndices () {
+    console.log('this.seqs', this.seqs)
+    console.log('this.mergedSeqs', this.mergedSeqs)
     const parentIndices = []
 
     for (let i = 0; i < this.seqs.length; ++i) {
@@ -37,6 +39,8 @@ export class LatestSeqs {
         parentIndices.push(i)
       }
     }
+
+    console.log('parentIndices', parentIndices)
 
     return parentIndices
   }

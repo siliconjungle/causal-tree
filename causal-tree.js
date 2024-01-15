@@ -114,7 +114,7 @@ export class CausalTree {
             parentChange.globalSeq
           )
         ) {
-          this.latestSeqs.mergeAtIndex(parentChange.replicaId, parentChange.globalSeq)
+          this.latestSeqs.mergeAtIndex(parentChange.replicaIndex, parentChange.globalSeq)
         }
       }
 
@@ -180,10 +180,9 @@ export class CausalTree {
   getNextGlobalParents () {
     const nextParentIndices = this.latestSeqs.getNextParentIndices()
 
-    // we then need to just loop through and convert them to parents.
     const parents = nextParentIndices.map(parentIndex => {
-      const localChange = this.changes[parentIndex]
-      const { replicaId, globalSeq } = this.toGlobalChange(localChange)
+      const replicaId = this.replicaIds.getIdByIndex(parentIndex)
+      const globalSeq = this.latestSeqs.seqs[parentIndex]
 
       return {
         replicaId,

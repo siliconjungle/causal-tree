@@ -4,6 +4,7 @@
 // on the order in which you apply changes to the context.
 // normal user behavior should likely touch the same file many times in a row.
 // This should be used in the context of a causal tree view.
+// The other way to represent this is to just store the latest index and then store the indices that exist.
 export class Exists {
   constructor () {
     this.exists = []

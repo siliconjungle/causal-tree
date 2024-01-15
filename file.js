@@ -1,4 +1,9 @@
 import { CausalTree } from './causal-tree.js';
+import { getAncestorIndices } from './utils.js';
+
+// getAncestorIndices(changes, changeIndex)
+// so we can call this method and then we can filter out the ops that are not in the ancestor indices.
+// then just apply the ops in order.
 
 // const op = {
   // changeIndex,

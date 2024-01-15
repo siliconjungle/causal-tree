@@ -251,6 +251,8 @@ const getNextGlobalParents = () => {
       throw new Error('expected diamond next global parents')
     }
   }
+
+  diamond()
 }
 
 const getChangesSinceIndex = () => {}

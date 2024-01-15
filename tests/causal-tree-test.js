@@ -7,7 +7,7 @@ import { CausalTree } from '../causal-tree.js'
 // toLocalChange (globalChange)
 // toGlobalChange (localChange)
 // getNextGlobalParents ()
-// getChangesSinceIndex (localIndex)
+// getGlobalChangesSinceIndex (localIndex)
 
 const doesChangeExist = () => {}
 
@@ -255,7 +255,66 @@ const getNextGlobalParents = () => {
   diamond()
 }
 
-const getChangesSinceIndex = () => {}
+const getGlobalChangesSinceIndex = () => {
+  // add a bunch of changes
+  // then get the changes since a certain index
+  // and make sure they are the right ones
+  const causalTree = new CausalTree()
+
+  // loop through 500 times adding linear changes.
+  // each change should have a single parent
+  const numChanges = 500
+  const changes = [
+    {
+      replicaId: 'a',
+      globalSeq: 0,
+      parents: [],
+    },
+  ]
+
+  for (let i = 1; i < numChanges; i++) {
+    changes.push({
+      replicaId: 'a',
+      globalSeq: i,
+      parents: [
+        {
+          replicaId: 'a',
+          globalSeq: i - 1,
+        },
+      ],
+    })
+  }
+
+  changes.forEach((change) => {
+    causalTree.addGlobalChange(change)
+  })
+
+  // get changes from 250+
+  const index = 250
+
+  const globalChanges = causalTree.getGlobalChangesSinceIndex(index)
+
+  const expected = []
+
+  for (let i = index; i < numChanges; i++) {
+    expected.push({
+      replicaId: 'a',
+      globalSeq: i,
+      parents: [
+        {
+          replicaId: 'a',
+          globalSeq: i - 1,
+        },
+      ],
+    })
+  }
+
+  if (JSON.stringify(globalChanges) !== JSON.stringify(expected)) {
+    throw new Error('expected global changes since index')
+  }
+
+  console.log('getGlobalChangesSinceIndex passed')
+}
 
 export const run = () => {
   console.log('running causal-tree-test')
@@ -267,5 +326,5 @@ export const run = () => {
   toLocalChange()
   toGlobalChange()
   getNextGlobalParents()
-  getChangesSinceIndex()
+  getGlobalChangesSinceIndex()
 }

@@ -195,6 +195,8 @@ export class CausalTree {
 
   getGlobalChangesSinceIndex (localIndex) {
     if (localIndex < 0 || localIndex >= this.changes.length) {
+      console.log('returning empty')
+
       // maybe throw an error?
       return []
     }

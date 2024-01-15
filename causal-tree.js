@@ -193,19 +193,18 @@ export class CausalTree {
     return parents
   }
 
-  getChangesSinceIndex (localIndex) {
-    if (this.changes.length -1 > localIndex) {
-      const localChanges = this.changes.slice(localIndex)
-
-      const globalChanges = localChanges.map(localChange => {
-        const globalChange = this.toGlobalChange(localChange)
-
-        return globalChange
-      })
-
-      return globalChanges
+  getGlobalChangesSinceIndex (localIndex) {
+    if (localIndex < 0 || localIndex >= this.changes.length) {
+      // maybe throw an error?
+      return []
     }
 
-    return []
+    const localChanges = this.changes.slice(localIndex)
+
+    const globalChanges = localChanges.map((localChange) => {
+      return this.toGlobalChange(localChange)
+    })
+
+    return globalChanges
   }
 }

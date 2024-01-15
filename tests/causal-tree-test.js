@@ -15,9 +15,7 @@ const getChangeIndex = () => {}
 
 const getChangeUid = () => {}
 
-const addGlobalChange = () => {
-
-}
+const addGlobalChange = () => {}
 
 const toLocalChange = () => {}
 
